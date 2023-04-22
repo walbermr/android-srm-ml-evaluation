@@ -37,8 +37,8 @@ class BasicExperiments(object):
         self._path_dir = os.path.join(
             "./reports/latex/", self._experiment_name
         )
-        if not os.path.isdir(self._path_dir):
-            os.mkdir(self._path_dir)
+    
+        os.makedirs(self._path_dir, exist_ok=True)
 
     def run_experiment(self):
         pass

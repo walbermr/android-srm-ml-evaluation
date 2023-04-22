@@ -1,3 +1,4 @@
+import os
 import csv
 
 
@@ -26,6 +27,8 @@ def print_metrics(classes, globals):
 
 
 def save_metrics(name, classes):
+    os.makedirs("./reports/metrics/", exist_ok=True)
+
     with open(("reports/metrics/%s.csv" % (name)), "w") as f:
         wr = csv.writer(f)
         for metric_list in [c.to_list() for c in classes]:

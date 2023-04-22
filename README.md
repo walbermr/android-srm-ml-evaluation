@@ -4,6 +4,9 @@ To have all the sub-packages, run:
 
     $ git clone --recursive https://github.com/walbermr/android-srm-ml-evaluation.git
 
+Install conda environment:
+
+    $ conda install -f env.yml
 
 To replicate the results from the paper, you first must download the embedding algorithms checkpoints from the [gdrive link](https://drive.google.com/file/d/14-o2yLDIMDPg8NhQoGS2eJvtMux0YQr4/view?usp=share_link) and place it in this directory root. After extraction, it should have the following structure:
 

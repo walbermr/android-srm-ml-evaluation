@@ -1,15 +1,14 @@
-import json, argparse, operator
+import os
+import argparse
 
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 import numpy as np
-import pandas as pd
 
 from deslib.util.instance_hardness import kdn_score
 
 import sys
 
-sys.path.append("../../")
+sys.path.append("..")
 
 from datasetutils.dataset import Dataset
 from experiments.base_experiments import BasicExperiments
@@ -36,14 +35,14 @@ def get_entry(entries, algo):
 
 
 def main(neighbors, reduction_algorithm, selected_entry, selected_dimm=100):
-    samples_path = "../../preprocessing/reduced_dataset/"
-    baseline_samples = "../../datasetutils/sampled_db/"
+    samples_path = "../preprocessing/reduced_dataset/"
+    baseline_samples = "../datasetutils/sampled_db/"
     (
         recursive_directories,
         path_is_recursive,
     ) = BasicExperiments.get_recursive_directories(samples_path)
     dataset = Dataset(
-        "../../datasetutils/db/methods.csv"
+        "../datasetutils/db/methods.csv"
     )  # use already preprocessed db
 
     dimm_map = {
@@ -191,7 +190,9 @@ def main(neighbors, reduction_algorithm, selected_entry, selected_dimm=100):
     plt.xlim((0, 1))
     plt.ylim((0, 1))
 
-    plt.savefig("../cumulative-transformed.pdf")
+    if not os.path.isdir("hardness"):
+        os.makedirs("hardness")
+    plt.savefig("./hardness/cumulative-transformed.pdf")
 
 
 if __name__ == "__main__":

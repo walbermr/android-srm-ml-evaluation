@@ -11,9 +11,8 @@ if [ test -f ./data.tar ]; then
 
     cd ./visualizations
     python print_anchor_distribution.py
-    cd ./hardness
     python cumulative_hardness.py -d 100
-    cd ../..
+    cd ../
 
 else
     echo "Download the data.tar file and place in the repository root."
