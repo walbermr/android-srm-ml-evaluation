@@ -1,0 +1,6 @@
+[submodule "SuSi"]
+	path = SuSi
+	url = https://github.com/walbermr/SuSi
+[submodule "arfftocsv"]
+	path = arfftocsv
+	url = https://github.com/walbermr/arfftocsv
