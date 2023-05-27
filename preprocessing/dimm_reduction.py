@@ -34,17 +34,6 @@ np.random.seed(seed=199)
 
 import rpy2
 import rpy2.robjects.numpy2ri
-import rpy2.robjects.packages as rpackages
-
-rutils = rpackages.importr("utils")
-rutils.chooseCRANmirror(ind=1)
-from rpy2.robjects.vectors import StrVector
-
-packnames = ("logisticPCA",)
-names_to_install = [x for x in packnames if not rpackages.isinstalled(x)]
-if len(names_to_install) > 0:
-    print(names_to_install)
-    rutils.install_packages(StrVector(names_to_install))
 from rpy2.robjects.packages import importr
 
 rpy2.robjects.numpy2ri.activate()

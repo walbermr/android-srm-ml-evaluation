@@ -18,9 +18,9 @@ To perform all experiments, run on Linux:
 
     $ ./run_pipeline.sh
 
-on Windows:
+On Windows, it is required to use the provided Docker image, as `Auto-sklearn` is not supported in Windows:
 
-    $ ./run_pipieline.ps1
+    $ ./docker-run.ps1
     
 ## Usage
 
@@ -28,7 +28,7 @@ To run SuSi, you just need to run the command below, if you get heap memory erro
 
     $ java -cp lib/weka.jar:soot.jar:soot-infoflow.jar:soot-infoflow-android.jar:bin de.ecspride.sourcesinkfinder.SourceSinkFinder android-12.jar permissionMethodWithLabel.pscout out.pscout
 
-To run on windows use:
+To run on Windows use:
 
     $ java -cp "lib/weka.jar;soot.jar;soot-infoflow.jar;soot-infoflow-android.jar;bin" de.ecspride.sourcesinkfinder.SourceSinkFinder android-12.jar permissionMethodWithLabel.pscout out.pscout
 

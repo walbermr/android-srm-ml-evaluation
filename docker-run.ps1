@@ -1,39 +1,31 @@
-#!/bin/bash
-SOURCE_PATH=${1:-"./"}
-MODE=${2:-""}
+param(
+    [string]$SOURCE_PATH="./",
+    [string]$MODE
+)
 
-if [ "$SOURCE_PATH" == "fresh" ]
-then
-    MODE=${SOURCE_PATH}
-    SOURCE_PATH="./"
-fi
+if ("fresh" -eq $SOURCE_PATH)
+{
+    $MODE=${SOURCE_PATH}
+    $SOURCE_PATH="./"
+}
 
-SOURCE_PATH=$(realpath ${SOURCE_PATH})
+$SOURCE_PATH="$(Resolve-Path ${SOURCE_PATH})"
 
-if [ "$MODE" == "fresh" -o "$(docker images -q linux:general 2> /dev/null)" == "" ]
-then
-    echo "Cloning and building container."
+if ( "fresh" -eq $MODE -or  "$(docker images -q srm-eval:latest)" -eq "")
+{
+    Write-Host "Cloning and building container."
     git pull
-    docker build --no-cache . -t linux:general
-fi
+    docker build --no-cache . -t srm-eval:latest
+}
 
-docker run -it --rm \
-    -w /root/ \
-    -v "${SOURCE_PATH}:/root/" \
-    --name general-ml linux:general 
+docker run -it --rm -w /root/srm -v "${SOURCE_PATH}:/root/srm" --name srm-container srm-eval:latest ./run_pipeline.sh
 
+$DOCKER_ID=$(docker ps -a | Select-String "srm-container" | %{ $_.Line.Split(' ')[-1]; })
 
-DOCKER_ID=$(docker ps -a | grep general-ml | awk '{print $1}')
-
-if [ ${DOCKER_ID} ]
-then
-    echo "Stopping container."
-    {
-        docker stop "${DOCKER_ID}"
-        docker rm "${DOCKER_ID}"
-    } &> /dev/null
-fi
-
-# maybe there is a better solution to that
-echo "If asked, please provide your password to return files onwnership"
-sudo chown -R $USER:$USER $SOURCE_PATH
+if( ${DOCKER_ID} )
+{
+    Write-Host "Stopping container."
+    docker stop "${DOCKER_ID}"
+    Write-Host "Removing container."
+    docker rm "${DOCKER_ID}"
+}
