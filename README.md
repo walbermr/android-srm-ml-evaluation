@@ -14,7 +14,7 @@ Install conda environment:
 
 Install required R packages:
 
-    $ conda run -n srm python ./r_packages.py
+    $ cd preprocessing && conda run -n srm python ./r_packages.py && cd ..
 
 To replicate the results from the paper, you first must download the embedding algorithms checkpoints from the [gdrive link](https://drive.google.com/file/d/14-o2yLDIMDPg8NhQoGS2eJvtMux0YQr4/view?usp=share_link) and place it in this directory root. After extraction, it should have the following structure:
 
